@@ -9,8 +9,10 @@ public class EnemyController : Object
     float timer;
     public float changeTime;
     public bool isRocket;
+    public bool isFollwing;
     int direction = 1;
     float moveTimer;
+    float rotationAngle = 0;
 
     Animator ani;
 
@@ -62,12 +64,28 @@ public class EnemyController : Object
         Vector2 position = obj.position;
         position.x = position.x + Time.deltaTime * speed * direction;
         obj.MovePosition(position);
+        if (isFollwing)
+        {
+            Rotate();
+        }
+    }
+
+    void Rotate()
+    {
+        GameObject player = GameObject.Find("Player");
+        Vector3 rotateDirection = player.transform.position - transform.position;
+        rotateDirection.Normalize();
+        rotationAngle = Mathf.Atan2(rotateDirection.y, rotateDirection.x) * Mathf.Rad2Deg;
+        rotationAngle -= 90;
+        transform.rotation = Quaternion.Euler(0f, 0f, rotationAngle);
+        //Quaternion newQuaternion = Quaternion.Euler(0f, 0f, rotationAngle);
+        //transform.rotation = Quaternion.RotateTowards(transform.rotation, newQuaternion, 60f * Time.deltaTime);
     }
 
     void Launch()
     {
         //audioSource.PlayOneShot(shootSound);
-        Instantiate(bullet, obj.position - Vector2.up * 0.5f, Quaternion.identity);
+        Instantiate(bullet, obj.position - Vector2.up * 0.5f, Quaternion.Euler(0f, 0f, rotationAngle));
     }
 
     IEnumerator LaunchRocket()
