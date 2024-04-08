@@ -10,9 +10,12 @@ public class EnemyController : Object
     public float changeTime;
     public bool isRocket;
     public bool isFollwing;
+    public bool isTackle;
+    public float tackleTimer;
     int direction = 1;
     float moveTimer;
     float rotationAngle = 0;
+    bool rotateOneTime;
 
     Animator ani;
 
@@ -37,7 +40,8 @@ public class EnemyController : Object
     void Update()
     {
         timer -= Time.deltaTime;
-        if (timer < 0)
+        tackleTimer -= Time.deltaTime;
+        if (timer < 0 && !isTackle)
         {
             if (isRocket)
             {
@@ -49,6 +53,13 @@ public class EnemyController : Object
                 Launch();
             }
             timer = Random.Range(2f, 5f);
+        }
+        else
+        {
+            if(tackleTimer < 0 && isTackle)
+            {
+                Tackle();
+            }
         }
 
         moveTimer -= Time.deltaTime;
@@ -78,6 +89,7 @@ public class EnemyController : Object
         rotationAngle = Mathf.Atan2(rotateDirection.y, rotateDirection.x) * Mathf.Rad2Deg;
         rotationAngle -= 90;
         transform.rotation = Quaternion.Euler(0f, 0f, rotationAngle);
+        rotateOneTime = true;
         //Quaternion newQuaternion = Quaternion.Euler(0f, 0f, rotationAngle);
         //transform.rotation = Quaternion.RotateTowards(transform.rotation, newQuaternion, 60f * Time.deltaTime);
     }
@@ -85,7 +97,7 @@ public class EnemyController : Object
     void Launch()
     {
         //audioSource.PlayOneShot(shootSound);
-        Instantiate(bullet, obj.position - Vector2.up * 0.5f, Quaternion.Euler(0f, 0f, rotationAngle));
+        Instantiate(bullet, obj.position, Quaternion.Euler(0f, 0f, rotationAngle));
     }
 
     IEnumerator LaunchRocket()
@@ -109,6 +121,20 @@ public class EnemyController : Object
         ani.SetBool("isShooting", true);
         yield return new WaitForSeconds(animationTimer);
         ani.SetBool("isShooting", false);
+    }
+
+    void Tackle()
+    {
+        if (!rotateOneTime)
+        {
+            Rotate();
+        }
+        speed = 0;
+        transform.Translate(Vector3.up * 5f * Time.deltaTime);
+        if(tackleTimer + 3 <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public void Hitted()
