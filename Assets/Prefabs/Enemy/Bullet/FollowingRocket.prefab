@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 339102131020381918}
   - component: {fileID: 977623761290424586}
   - component: {fileID: 3961769543076817575}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FollowingRocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -172,3 +172,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  damage: 0

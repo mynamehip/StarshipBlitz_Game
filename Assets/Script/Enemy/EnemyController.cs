@@ -137,13 +137,28 @@ public class EnemyController : Object
         }
     }
 
-    public void Hitted()
-    {
-        //Instantiate(enemyEffect, obj.position, Quaternion.identity);
-        Destroy(gameObject);
-    }
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        string layer = LayerMask.LayerToName(collision.gameObject.layer);
+        if(layer == "PlayerBullet")
+        {
+            BulletController bulletController = collision.GetComponent<BulletController>();
+            heart -= bulletController.damage;
+            Destroy(collision.gameObject);
+        }
+        else if(layer == "Player")
+        {
+            return;
+        }
+        else
+        {
+            return;
+        }
+
+        if(heart <= 0)
+        {
+            //Instantiate(enemyEffect, obj.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
     }
 }

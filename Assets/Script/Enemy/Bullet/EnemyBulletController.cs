@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyBulletController : MonoBehaviour
 {
     public float speed;
+    public int damage;
     float timer = 2f;
 
     void Update()
@@ -19,4 +20,6 @@ public class EnemyBulletController : MonoBehaviour
             transform.Translate(Vector3.down * speed * Time.deltaTime);
         }
     }
+
+    
 }

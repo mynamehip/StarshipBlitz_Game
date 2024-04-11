@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8601250594652536616}
   - component: {fileID: 1488982224136263516}
   - component: {fileID: 4285500308026705771}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EnemyRocket
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -173,6 +173,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  damage: 0
 --- !u!95 &4285500308026705771
 Animator:
   serializedVersion: 5

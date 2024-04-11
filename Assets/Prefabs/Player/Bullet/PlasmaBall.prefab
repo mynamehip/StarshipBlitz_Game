@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6884577672432510786}
   - component: {fileID: 3039035912222765749}
   - component: {fileID: 1100040592344486218}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PlasmaBall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -184,3 +184,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  damage: 5

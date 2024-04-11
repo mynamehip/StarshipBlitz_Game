@@ -69,7 +69,7 @@ public class WeaponController : MonoBehaviour
         {
             StartCoroutine(LaunchRocket(bulletIndex));
             StartCoroutine(WeaponAnimation(1.2f));
-            rocketTimer = 2f;
+            rocketTimer = 1.2f;
         }
         if (bulletIndex == 2 && plasmaBallTimer < 0)
         {
@@ -90,16 +90,16 @@ public class WeaponController : MonoBehaviour
     IEnumerator LaunchRocket(int bulletIndex)
     {
         Instantiate(bulletType[bulletIndex], transform.position + new Vector3(-0.25f, 0, 0), Quaternion.identity);
-        yield return new WaitForSeconds(0.05f);
+        yield return new WaitForSeconds(0.15f);
         Instantiate(bulletType[bulletIndex], transform.position + new Vector3(0.25f, 0, 0), Quaternion.identity);
-        yield return new WaitForSeconds(0.05f);
-        Instantiate(bulletType[bulletIndex], transform.position + new Vector3(-0.25f, 0, 0), Quaternion.identity);
-        yield return new WaitForSeconds(0.05f);
-        Instantiate(bulletType[bulletIndex], transform.position + new Vector3(0.25f, 0, 0), Quaternion.identity);
-        yield return new WaitForSeconds(0.05f);
-        Instantiate(bulletType[bulletIndex], transform.position + new Vector3(-0.25f, 0, 0), Quaternion.identity);
-        yield return new WaitForSeconds(0.05f);
-        Instantiate(bulletType[bulletIndex], transform.position + new Vector3(0.25f, 0, 0), Quaternion.identity);
+        yield return new WaitForSeconds(0.15f);
+        Instantiate(bulletType[bulletIndex], transform.position + new Vector3(-0.25f, 0, 0), Quaternion.Euler(0, 0, 10));
+        yield return new WaitForSeconds(0.15f);
+        Instantiate(bulletType[bulletIndex], transform.position + new Vector3(0.25f, 0, 0), Quaternion.Euler(0, 0, -10));
+        yield return new WaitForSeconds(0.15f);
+        Instantiate(bulletType[bulletIndex], transform.position + new Vector3(-0.25f, 0, 0), Quaternion.Euler(0, 0, 20));
+        yield return new WaitForSeconds(0.15f);
+        Instantiate(bulletType[bulletIndex], transform.position + new Vector3(0.25f, 0, 0), Quaternion.Euler(0, 0, -20));
     }
 
     IEnumerator LaunchPlasmaBall(int bulletIndex)

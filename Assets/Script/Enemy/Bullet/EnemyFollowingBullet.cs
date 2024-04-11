@@ -7,6 +7,7 @@ using UnityEngine;
 public class EnemyFollowingBullet : MonoBehaviour
 {
     public float speed;
+    public int damage;
     float timer = 2f;
 
     private void Awake()

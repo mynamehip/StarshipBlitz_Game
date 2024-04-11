@@ -49,4 +49,34 @@ public class PlayerController : Object
     //    float rotationAngle = Mathf.Atan2(rotateDirection.y, rotateDirection.x) * Mathf.Rad2Deg - 90;
     //    transform.rotation = Quaternion.Euler(0f, 0f, rotationAngle);
     //}
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        string layer = LayerMask.LayerToName(collision.gameObject.layer);
+        if (layer == "EnemyBullet")
+        {
+            EnemyBulletController bulletController = collision.GetComponent<EnemyBulletController>();
+            heart -= bulletController.damage;
+            Destroy(collision.gameObject);
+        }
+        else if (layer == "Enemy")
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            return;
+        }
+
+        if (heart <= 0)
+        {
+            //Instantiate(enemyEffect, obj.position, Quaternion.identity);
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        
+    }
 }
