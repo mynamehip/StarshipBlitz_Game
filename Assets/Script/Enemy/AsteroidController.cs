@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class AsteroidController : MonoBehaviour
 {
+    public float heart;
     public float speed;
-    float timer = 2f;
+    float timer = 5f;
     public float zRotation;
     public float sizeScale;
     Vector3 targetDirection;
@@ -28,5 +29,10 @@ public class AsteroidController : MonoBehaviour
         {
             transform.Translate(targetDirection * speed * Time.deltaTime);
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        
     }
 }

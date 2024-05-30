@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 372912858726319847}
   - component: {fileID: 339102131020381918}
   - component: {fileID: 977623761290424586}
-  - component: {fileID: 3961769543076817575}
+  - component: {fileID: 1217604383169665872}
   m_Layer: 8
   m_Name: FollowingRocket
   m_TagString: Untagged
@@ -79,7 +79,7 @@ SpriteRenderer:
   m_Sprite: {fileID: 1372738719, guid: a31d5dc106335fe4eb2593efe44d2667, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
-  m_FlipY: 0
+  m_FlipY: 1
   m_DrawMode: 0
   m_Size: {x: 0.28125, y: 0.75}
   m_AdaptiveModeThreshold: 0.5
@@ -146,7 +146,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0015745163, y: -0.04408732}
+  m_Offset: {x: 0.0015745163, y: 0.015657902}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -157,9 +157,9 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.24031162, y: 0.5484584}
+  m_Size: {x: 0.24031162, y: 0.5086279}
   m_EdgeRadius: 0
---- !u!114 &3961769543076817575
+--- !u!114 &1217604383169665872
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -168,8 +168,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 4530659855810289489}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 69cbce005849edc4d9f6faa1e7897579, type: 3}
+  m_Script: {fileID: 11500000, guid: 121f84be323ba0147877eeeeaed1326a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  damage: 0
+  damage: 1
+  liveTime: 5
+  vfx: {fileID: 740585937934358083, guid: ed9e61731da1e1540abad4c6b3c0ca8d, type: 3}

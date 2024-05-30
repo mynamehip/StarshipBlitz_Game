@@ -173,7 +173,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  damage: 0
+  damage: 1
+  liveTime: 4
+  vfx: {fileID: 740585937934358083, guid: 620fdb2c973450841bdd8a520a15d693, type: 3}
 --- !u!95 &4285500308026705771
 Animator:
   serializedVersion: 5

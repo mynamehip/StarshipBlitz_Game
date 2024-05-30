@@ -195,3 +195,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 15
   damage: 1
+  isPlasma: 0
+  vfx: {fileID: 740585937934358083, guid: ed9e61731da1e1540abad4c6b3c0ca8d, type: 3}

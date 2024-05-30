@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 2652728171210047105}
   - component: {fileID: 118717252549606277}
   - component: {fileID: 8434092244108821347}
-  - component: {fileID: 8922806507227627538}
-  m_Layer: 0
+  - component: {fileID: 8027356975167208201}
+  m_Layer: 10
   m_Name: EnemyTackle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -116,7 +116,7 @@ BoxCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.0051950216, y: -0.046755612}
@@ -159,7 +159,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &8922806507227627538
+--- !u!114 &8027356975167208201
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -168,16 +168,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 5762683623220226943}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62f504d47c828ff4d8e6bb184b9a7588, type: 3}
+  m_Script: {fileID: 11500000, guid: 993fede43d0a8a747bd3a3d8cada5ba6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  heart: 20
-  speed: 2
-  changeTime: 2
-  isRocket: 0
+  heart: 10
+  speed: 1
+  explo: {fileID: 7435647783529062612, guid: 6e9c1c955f005744aaf5969de27363bd, type: 3}
+  isHoldItem: 0
+  item: []
+  waypoints: []
+  currentWaypointIndex: 0
+  isControlling: 1
   isFollwing: 0
-  isTackle: 1
-  tackleTimer: 2
-  bullet: {fileID: 0}
+  changeTime: 3
+  moveTimer: 1.5
   enemyEffect: {fileID: 0}
-  shootSound: {fileID: 0}
+  flySound: {fileID: 0}
+  tackleTimer: 0

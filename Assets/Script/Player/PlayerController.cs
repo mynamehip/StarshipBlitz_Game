@@ -1,28 +1,55 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.UI;
 
 public class PlayerController : Object
 {
-    private Vector2 newPosition;
+    public ParticleSystem explo;
+    public GameController gc;
+    public Image heartBar;
+    SpriteRenderer spriteRenderer;
+    private Vector2 direction;
     float screenX;
     float screenY;
 
+    private Vector3 touchPosition;
+    private Rigidbody2D rb;
+
     private void Start()
     {
-        newPosition = transform.position;
+        rb = GetComponent<Rigidbody2D>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.sprite = PlayerData.instance.GetSkin();
         GetScreenSize();
     }
 
     private void Update()
     {
-        newPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-    }
+        direction.x = Input.GetAxis("Horizontal");
+        direction.y = Input.GetAxis("Vertical");
+        if (Input.touchCount > 0)
+        {
+            Touch touch = Input.GetTouch(0);
+            switch (touch.phase)
+            {
+                case TouchPhase.Began:
+                    touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
+                    touchPosition.z = 0f;
+                    break;
 
-    private void FixedUpdate()
-    {
-        Move();
+                case TouchPhase.Moved:
+                    Vector3 deltaPosition = Camera.main.ScreenToWorldPoint(touch.position) - touchPosition;
+                    Vector2 newPosition = (Vector2)transform.position + (Vector2)deltaPosition;
+                    newPosition.x = Mathf.Clamp(newPosition.x, -screenX, screenX);
+                    newPosition.y = Mathf.Clamp(newPosition.y, -screenY, screenY);
+                    rb.MovePosition(newPosition);
+                    touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
+                    touchPosition.z = 0f;
+                    break;
+            }
+        }
+
     }
 
     public void GetScreenSize()
@@ -32,24 +59,6 @@ public class PlayerController : Object
         screenY = screen.y;
     }
 
-    protected void Move()
-    {
-        newPosition.x = Mathf.Clamp(newPosition.x, -screenX, screenX);
-        newPosition.y = Mathf.Clamp(newPosition.y, -screenY, screenY);
-        if ((Vector2)transform.position != newPosition)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, newPosition, speed * Time.deltaTime);
-        }
-    }
-
-    //protected void Turn()
-    //{
-    //    Vector3 rotateDirection = targetPosition - (Vector2)transform.position;
-    //    rotateDirection.Normalize();
-    //    float rotationAngle = Mathf.Atan2(rotateDirection.y, rotateDirection.x) * Mathf.Rad2Deg - 90;
-    //    transform.rotation = Quaternion.Euler(0f, 0f, rotationAngle);
-    //}
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         string layer = LayerMask.LayerToName(collision.gameObject.layer);
@@ -57,11 +66,16 @@ public class PlayerController : Object
         {
             EnemyBulletController bulletController = collision.GetComponent<EnemyBulletController>();
             heart -= bulletController.damage;
+            ChangeHeart();
+            bulletController.Effect();
             Destroy(collision.gameObject);
         }
         else if (layer == "Enemy")
         {
-            Destroy(gameObject);
+            gc.DeadPlayer();
+            heart = 0;
+            ChangeHeart();
+            gameObject.SetActive(false);
         }
         else
         {
@@ -70,13 +84,23 @@ public class PlayerController : Object
 
         if (heart <= 0)
         {
-            //Instantiate(enemyEffect, obj.position, Quaternion.identity);
-            Destroy(gameObject);
+            gc.DeadPlayer();
+            ChangeHeart();
+            if(explo != null)
+            {
+                Instantiate(explo, transform.position, Quaternion.identity);
+            }
+            gameObject.SetActive(false);
         }
+    }
+
+    void ChangeHeart()
+    {
+        heartBar.fillAmount = (float)heart / 5;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        
+
     }
 }

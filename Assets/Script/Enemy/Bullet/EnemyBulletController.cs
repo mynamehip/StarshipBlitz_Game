@@ -1,17 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyBulletController : MonoBehaviour
 {
     public float speed;
     public int damage;
-    float timer = 2f;
+    public float liveTime;
+    public ParticleSystem vfx;
 
     void Update()
     {
-        timer -= Time.deltaTime;
-        if (timer < 0f)
+        liveTime -= Time.deltaTime;
+        if (liveTime < 0f)
         {
             Destroy(gameObject);
         }
@@ -21,5 +23,8 @@ public class EnemyBulletController : MonoBehaviour
         }
     }
 
-    
+    public void Effect()
+    {
+         Instantiate(vfx, transform.position, Quaternion.identity);
+    }
 }
